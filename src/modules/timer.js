@@ -56,8 +56,6 @@ const timer = (deadline) => {
     timerHours.textContent = fHours;
     timerMinutes.textContent = fMinutes;
     timerSeconds.textContent = fSeconds;
-
-    console.log("Проверка");
   };
 
   timerDays = createDays();

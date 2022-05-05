@@ -1,4 +1,4 @@
-let date = new Date();
+/* let date = new Date();
 let dateNY = new Date("01.01.2023");
 let timeRemaining = Math.floor(
   (dateNY.getTime() - date.getTime()) / 1000 / 60 / 60 / 24
@@ -31,4 +31,4 @@ if (hours >= 12 && hours <= 18) {
 
 console.log("Текущее время:", time);
 console.log("Сегодня:", days[indexDay]);
-console.log(timeRemaining + " денй осталось до Нового Года!");
+console.log(timeRemaining + " денй осталось до Нового Года!"); */
