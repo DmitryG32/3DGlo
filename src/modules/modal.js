@@ -23,7 +23,8 @@ const modal = () => {
     body.addEventListener("click", (e) => {
       if (e.target.closest(".menu")) {
         menuActive.classList.add("active-menu");
-      } else if (e.target.matches("menu a[href]")) {
+        console.log(e.target);
+      } else if (e.target.matches("menu [href]")) {
         event.preventDefault();
         const section = document.querySelector(e.target.getAttribute("href"));
         if (section) {
@@ -33,8 +34,13 @@ const modal = () => {
             inline: "center",
           });
         }
-      } else if (!e.target.classList.contains("active-menu")) {
+        console.log(e.target);
+      } else if (
+        !e.target.classList.contains("active-menu") &&
+        !e.target.matches("menu li")
+      ) {
         menuActive.classList.remove("active-menu");
+        console.log(e.target);
       }
     });
   };
