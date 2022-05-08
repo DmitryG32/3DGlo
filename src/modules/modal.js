@@ -1,12 +1,10 @@
 const modal = () => {
   const modal = document.querySelector(".popup");
   const buttons = document.querySelectorAll(".popup-btn");
-  const closeBtn = modal.querySelector(".popup-close");
   const modalContent = modal.querySelector(".popup-content");
-  const menu = document.querySelector("menu");
-  const menuItems = menu.querySelectorAll("ul>li>a");
+  const menuActive = document.querySelector("menu");
   const scrollBtn = document.querySelector("a");
-
+  const body = document.querySelector("body");
   let countLeft = 0;
   let idInterval;
 
@@ -21,6 +19,26 @@ const modal = () => {
     }
   };
 
+  const toggleMenu = () => {
+    body.addEventListener("click", (e) => {
+      if (e.target.closest(".menu")) {
+        menuActive.classList.add("active-menu");
+      } else if (e.target.matches("menu a[href]")) {
+        event.preventDefault();
+        const section = document.querySelector(e.target.getAttribute("href"));
+        if (section) {
+          section.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+            inline: "center",
+          });
+        }
+      } else if (!e.target.classList.contains("active-menu")) {
+        menuActive.classList.remove("active-menu");
+      }
+    });
+  };
+
   buttons.forEach((btn) => {
     btn.addEventListener("click", () => {
       modal.style.display = "block";
@@ -31,25 +49,13 @@ const modal = () => {
     });
   });
 
-  closeBtn.addEventListener("click", () => {
-    modal.style.display = "none";
-    countLeft = 0;
-  });
-
-  menuItems.forEach((link) => {
-    link.addEventListener("click", (event) => {
-      event.preventDefault();
-
-      const section = document.querySelector(link.getAttribute("href"));
-
-      if (section) {
-        section.scrollIntoView({
-          behavior: "smooth",
-          block: "start",
-          inline: "center",
-        });
-      }
-    });
+  modal.addEventListener("click", (e) => {
+    if (
+      !e.target.closest(".popup-content") ||
+      e.target.classList.contains("popup-close")
+    ) {
+      modal.style.display = "none";
+    }
   });
 
   scrollBtn.addEventListener("click", (event) => {
@@ -65,6 +71,8 @@ const modal = () => {
       });
     }
   });
+
+  toggleMenu();
 };
 
 export default modal;
