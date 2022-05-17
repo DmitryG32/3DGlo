@@ -16,6 +16,7 @@ const slider = () => {
       newArrDots[i] = newDot;
       portfolioDots.append(newArrDots[i]);
     }
+    newArrDots[0].classList.add("dot-active");
     dots = document.querySelectorAll(".dot");
   };
 

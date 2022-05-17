@@ -59,7 +59,7 @@ const timer = (deadline) => {
   };
 
   timerDays = createDays();
-
+  updataClock();
   const interval = setInterval(updataClock, 1000);
 };
 
