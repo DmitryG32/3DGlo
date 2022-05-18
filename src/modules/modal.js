@@ -1,3 +1,5 @@
+import { modalAnimate, animate } from "./helpers";
+
 const modal = () => {
   const modal = document.querySelector(".popup");
   const buttons = document.querySelectorAll(".popup-btn");
@@ -6,18 +8,6 @@ const modal = () => {
   const scrollBtn = document.querySelector("a");
   const body = document.querySelector("body");
   let countLeft = 0;
-  let idInterval;
-
-  const modalAnimate = () => {
-    countLeft++;
-    idInterval = requestAnimationFrame(modalAnimate);
-
-    if (countLeft < 39) {
-      modalContent.style.left = countLeft + "%";
-    } else {
-      cancelAnimationFrame(idInterval);
-    }
-  };
 
   const toggleMenu = () => {
     body.addEventListener("click", (e) => {
@@ -49,8 +39,19 @@ const modal = () => {
     btn.addEventListener("click", () => {
       modal.style.display = "block";
 
+      /* if (document.documentElement.clientWidth >= 768) {
+        modalAnimate(countLeft, modalContent);
+      } */
       if (document.documentElement.clientWidth >= 768) {
-        modalAnimate();
+        animate({
+          duration: 200,
+          timing(timeFraction) {
+            return timeFraction;
+          },
+          draw(progress) {
+            modalContent.style.left = 39 * progress + "%";
+          },
+        });
       }
     });
   });

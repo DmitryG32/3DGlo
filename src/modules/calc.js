@@ -1,3 +1,5 @@
+import { animate } from "./helpers";
+
 const calc = (price = 100) => {
   const calcBlock = document.querySelector(".calc-block");
   const calcType = document.querySelector(".calc-type");
@@ -11,17 +13,21 @@ const calc = (price = 100) => {
   const countCalc = () => {
     function totalValueAnimate() {
       if (newTotalValue < totalValue) {
-        let interval = setInterval(() => {
-          newTotalValue += step;
-          total.textContent = newTotalValue;
-          if (newTotalValue >= totalValue) {
-            clearInterval(interval);
-          }
-        }, 0.1);
-      } else {
-        total.textContent = totalValue;
+        animate({
+          duration: 500,
+          timing(timeFraction) {
+            return timeFraction;
+          },
+          draw(progress) {
+            newTotalValue = totalValue * progress;
+            total.textContent = Math.round(newTotalValue);
+            console.log(newTotalValue);
+            console.log(totalValue);
+          },
+        });
       }
-      newTotalValue = +total.textContent;
+      newTotalValue = 0;
+      total.textContent = totalValue;
     }
 
     const calcTypeValue = +calcType.options[calcType.selectedIndex].value;
@@ -49,7 +55,6 @@ const calc = (price = 100) => {
     }
 
     totalValueAnimate();
-    //total.textContent = totalValue;
   };
 
   calcBlock.addEventListener("input", (e) => {
@@ -65,18 +70,3 @@ const calc = (price = 100) => {
 };
 
 export default calc;
-
-/* function totalValueAnimate() {
-  const step = 10;
-  if (newTotalValue < totalValue) {
-    let interval = setInterval(() => {
-      newTotalValue += step;
-      console.log(newTotalValue);
-      total.textContent = newTotalValue;
-      if (newTotalValue >= totalValue) {
-        clearInterval(interval);
-      }
-    }, 1);
-  }
-  newTotalValue = +total.textContent;
-} */
