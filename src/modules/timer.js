@@ -36,15 +36,6 @@ const timer = (deadline) => {
   const updataClock = () => {
     let getTime = getTimeRemaining();
 
-    if (getTime.timeRemaining < 0) {
-      clearInterval(interval);
-      timerDays.textContent = "00";
-      timerHours.textContent = "00";
-      timerMinutes.textContent = "00";
-      timerSeconds.textContent = "00";
-      return;
-    }
-
     const fDays = getTime.days < 10 ? "0" + getTime.days : getTime.days;
     const fHours = getTime.hours < 10 ? "0" + getTime.hours : getTime.hours;
     const fMinutes =
@@ -56,10 +47,18 @@ const timer = (deadline) => {
     timerHours.textContent = fHours;
     timerMinutes.textContent = fMinutes;
     timerSeconds.textContent = fSeconds;
+
+    if (getTime.timeRemaining < 0) {
+      clearInterval(interval);
+      timerDays.textContent = "00";
+      timerHours.textContent = "00";
+      timerMinutes.textContent = "00";
+      timerSeconds.textContent = "00";
+    }
   };
 
   timerDays = createDays();
-  updataClock();
+
   const interval = setInterval(updataClock, 1000);
 };
 

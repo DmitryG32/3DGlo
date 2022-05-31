@@ -1,4 +1,4 @@
-import { modalAnimate, animate } from "./helpers";
+import { animate } from "./helpers";
 
 const modal = () => {
   const modal = document.querySelector(".popup");
@@ -13,7 +13,7 @@ const modal = () => {
     body.addEventListener("click", (e) => {
       if (e.target.closest(".menu")) {
         menuActive.classList.add("active-menu");
-        console.log(e.target);
+        //console.log(e.target);
       } else if (e.target.matches("menu [href]")) {
         event.preventDefault();
         const section = document.querySelector(e.target.getAttribute("href"));
@@ -24,13 +24,13 @@ const modal = () => {
             inline: "center",
           });
         }
-        console.log(e.target);
+        //console.log(e.target);
       } else if (
         !e.target.classList.contains("active-menu") &&
         !e.target.matches("menu li")
       ) {
         menuActive.classList.remove("active-menu");
-        console.log(e.target);
+        //console.log(e.target);
       }
     });
   };
@@ -80,6 +80,7 @@ const modal = () => {
   });
 
   toggleMenu();
+  /* sendForm({ formId: "form3" }); */
 };
 
 export default modal;

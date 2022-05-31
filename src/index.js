@@ -6,13 +6,21 @@ import regular from "./modules/regular";
 import tabs from "./modules/tabs";
 import slider from "./modules/slider";
 import calc from "./modules/calc";
-import helpers from "./modules/helpers";
+import sendForm from "./modules/sendForm";
 
-timer("05.25.2022");
+timer("05.22.2022");
 menu();
 modal();
 regular();
 tabs();
 slider();
 calc(100);
-helpers();
+sendForm({
+  /* formId: "form1", */
+  somElem: [
+    {
+      type: "block",
+      id: "total",
+    },
+  ],
+});

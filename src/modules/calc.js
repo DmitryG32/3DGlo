@@ -7,7 +7,6 @@ const calc = (price = 100) => {
   const calcCount = document.querySelector(".calc-count");
   const calcDay = document.querySelector(".calc-day");
   const total = document.getElementById("total");
-  let step = 10;
   let newTotalValue = 0;
 
   const countCalc = () => {
@@ -21,8 +20,8 @@ const calc = (price = 100) => {
           draw(progress) {
             newTotalValue = totalValue * progress;
             total.textContent = Math.round(newTotalValue);
-            console.log(newTotalValue);
-            console.log(totalValue);
+            /* console.log(newTotalValue);
+            console.log(totalValue); */
           },
         });
       }

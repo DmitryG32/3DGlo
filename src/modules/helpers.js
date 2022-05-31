@@ -1,17 +1,3 @@
-/* const modalAnimate = (position, obj) => {
-  let interval;
-  position++;
-  interval = requestAnimationFrame(modalAnimate);
-
-  if (position < 39) {
-    obj.style.left = position + "%";
-    console.log(position);
-  } else {
-    cancelAnimationFrame(interval);
-    console.log("Конец");
-  }
-}; */
-
 const animate = ({ timing, draw, duration }) => {
   let start = performance.now();
 
@@ -31,4 +17,4 @@ const animate = ({ timing, draw, duration }) => {
   });
 };
 
-export { /* modalAnimate, */ animate };
+export { animate };
