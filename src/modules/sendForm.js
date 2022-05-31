@@ -9,8 +9,10 @@ const sendForm = ({ /* formId, */ somElem = [] }) => {
   const userPhone = document.querySelectorAll('input[name="user_phone"]');
   const userName = document.querySelectorAll('input[name="user_name"]');
   const userMessage = document.querySelectorAll('input[name="user_message"]');
+  const userMail = document.querySelectorAll('input[name="user_email"]');
 
   let isValid;
+  /* ^(([\\d\\w]{1}[\\S]{1,})@([\\S]{1,}\\.){1,}[\\w]{1,})$ */
 
   const createAttr = () => {
     userPhone.forEach((element) => {
@@ -25,6 +27,14 @@ const sendForm = ({ /* formId, */ somElem = [] }) => {
 
     userMessage.forEach((element) => {
       element.setAttribute("data-reg", "^[А-Яа-я \\d\\.,]*$");
+      element.setAttribute("is-valid", 0);
+    });
+
+    userMail.forEach((element) => {
+      element.setAttribute(
+        "data-reg",
+        "^(([\\d\\w]{1}[\\S]{0,})@([\\S]{1,}\\.){1,}[\\w]{2,})$"
+      );
       element.setAttribute("is-valid", 0);
     });
   };
@@ -47,6 +57,12 @@ const sendForm = ({ /* formId, */ somElem = [] }) => {
     });
   });
 
+  userMail.forEach((element) => {
+    element.addEventListener("input", (e) => {
+      validate(e.target);
+    });
+  });
+
   const validate = (el) => {
     const inputValue = el.value;
     const inputReg = el.getAttribute("data-reg");
@@ -60,7 +76,7 @@ const sendForm = ({ /* formId, */ somElem = [] }) => {
       el.setAttribute("is-valid", 0);
     }
 
-    console.log(inputValue, reg);
+    //console.log(inputValue, reg);
   };
 
   const sendData = async (data) => {
@@ -78,8 +94,6 @@ const sendForm = ({ /* formId, */ somElem = [] }) => {
   };
 
   const submitForm = (elemForm) => {
-    console.log("submit!!!");
-    console.log(isValid);
     const formElements = elemForm.querySelectorAll("input");
     const formData = new FormData(elemForm); // этот экземпляр складирует все поля формы у которых есть атрибут name
     const formBody = {}; // объект для formData
@@ -122,7 +136,7 @@ const sendForm = ({ /* formId, */ somElem = [] }) => {
           statusBlock.textContent = errorText;
         });
     } else {
-      console.log(isValid, typeof isValid);
+      //console.log(isValid, typeof isValid);
       console.log("ошибка в поле");
       statusBlock.textContent = errorText;
       ("ERROR");
@@ -154,7 +168,7 @@ const sendForm = ({ /* formId, */ somElem = [] }) => {
           }
         }
 
-        console.log("все валидные", allValid);
+        //console.log("все валидные", allValid);
 
         submitForm(form);
       });
