@@ -8,7 +8,7 @@ import slider from "./modules/slider";
 import calc from "./modules/calc";
 import sendForm from "./modules/sendForm";
 
-timer("05.22.2022");
+timer("06.06.2022");
 menu();
 modal();
 regular();
@@ -16,7 +16,6 @@ tabs();
 slider();
 calc(100);
 sendForm({
-  /* formId: "form1", */
   somElem: [
     {
       type: "block",

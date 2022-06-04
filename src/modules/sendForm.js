@@ -1,5 +1,4 @@
 const sendForm = ({ /* formId, */ somElem = [] }) => {
-  /* const form = document.getElementById(formId); */
   const forms = document.querySelectorAll("form");
   const statusBlock = document.createElement("div");
   const loadText = "Загрузка...";
@@ -12,7 +11,6 @@ const sendForm = ({ /* formId, */ somElem = [] }) => {
   const userMail = document.querySelectorAll('input[name="user_email"]');
 
   let isValid;
-  /* ^(([\\d\\w]{1}[\\S]{1,})@([\\S]{1,}\\.){1,}[\\w]{1,})$ */
 
   const createAttr = () => {
     userPhone.forEach((element) => {
@@ -21,7 +19,7 @@ const sendForm = ({ /* formId, */ somElem = [] }) => {
     });
 
     userName.forEach((element) => {
-      element.setAttribute("data-reg", "^[А-Яа-я ]+$");
+      element.setAttribute("data-reg", "^([А-Яа-я]{1}[А-Яа-я ]{1,})$");
       element.setAttribute("is-valid", 0);
     });
 
@@ -82,11 +80,9 @@ const sendForm = ({ /* formId, */ somElem = [] }) => {
   const sendData = async (data) => {
     const res = await fetch("https://jsonplaceholder.typicode.com/posts", {
       method: "POST",
-      /* body: data, */
       body: JSON.stringify(data),
       headers: {
-        /* "Content-Type": "multipart/form-data", */ //без json формата
-        "Content-Type": "application/json", // отправка в json формате
+        "Content-Type": "application/json",
       },
     });
 
@@ -95,8 +91,8 @@ const sendForm = ({ /* formId, */ somElem = [] }) => {
 
   const submitForm = (elemForm) => {
     const formElements = elemForm.querySelectorAll("input");
-    const formData = new FormData(elemForm); // этот экземпляр складирует все поля формы у которых есть атрибут name
-    const formBody = {}; // объект для formData
+    const formData = new FormData(elemForm);
+    const formBody = {};
 
     statusBlock.textContent = loadText;
     elemForm.append(statusBlock);
@@ -106,25 +102,25 @@ const sendForm = ({ /* formId, */ somElem = [] }) => {
     }
 
     formData.forEach((val, key) => {
-      formBody[key] = val; //заполняет объект данными из formData
+      formBody[key] = val;
     });
 
     somElem.forEach((elem) => {
-      //перебираю объект где type: "block", id: "total
-      const element = document.getElementById(elem.id); // в element попадает элемент со страницы с id = total
+      const element = document.getElementById(elem.id);
 
       if (elem.type === "block") {
-        formBody[elem.id] = element.textContent; //в св-во formBady[total] сохраняется контент из элемента со страницы
+        formBody[elem.id] = element.textContent;
         console.log("данные", formBody);
       } else if (elem.type === "input") {
         formBody[elem.id] = element.value;
       }
     });
 
+    console.log(isValid);
+
     if (isValid === 1) {
       sendData(formBody)
         .then((data) => {
-          //выполняется после ф-ции sendData
           statusBlock.textContent = successText;
 
           formElements.forEach((input) => {
@@ -136,7 +132,6 @@ const sendForm = ({ /* formId, */ somElem = [] }) => {
           statusBlock.textContent = errorText;
         });
     } else {
-      //console.log(isValid, typeof isValid);
       console.log("ошибка в поле");
       statusBlock.textContent = errorText;
       ("ERROR");
@@ -167,8 +162,6 @@ const sendForm = ({ /* formId, */ somElem = [] }) => {
             isValid = 1;
           }
         }
-
-        //console.log("все валидные", allValid);
 
         submitForm(form);
       });
